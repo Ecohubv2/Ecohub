@@ -479,13 +479,27 @@ Tabs.Farm:AddParagraph({
     Content = "ถ้าจะเปลี่ยนงานกดปิด Auto Farm ละกดเดิน1ที ค่อยเลือกงานใหม่ละกดเปิด"
 })
 
+Env.SelectedFarmTarget = {}
+
 Tabs.Farm:AddDropdown("SelectFarmTarget", {
     Title = "Select Farm",
     Multi = true,
-    Values = {"Strawberry","Corn","Chilli","Banana","Grape","Coconut","Pork","Flower","Wood","Grass"},
+    Values = {
+        "Strawberry","Corn","Chilli","Banana",
+        "Grape","Coconut","Pork","Flower","Wood","Grass"
+    },
+
     Default = {},
 
     Callback = function(Value)
+
+        -- กันบัค ถ้า Value เป็น string
+        if type(Value) ~= "table" then
+            local t = {}
+            t[Value] = true
+            Value = t
+        end
+
         Env.SelectedFarmTarget = Value
         Env.BotStatus = "CHECKING"
         Env.CurrentFarmTargetItem = nil
@@ -496,6 +510,7 @@ Tabs.Farm:AddDropdown("SelectFarmTarget", {
                 smartRun()
             end)
         end
+
     end
 })
 
