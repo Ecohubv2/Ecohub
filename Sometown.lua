@@ -162,7 +162,26 @@ local function smartRun()
         end
     end
 end
+-- AUTO NOCLIP
+local RunService = game:GetService("RunService")
 
+RunService.Stepped:Connect(function()
+
+    if Env.AutoFarm then
+
+        local char = game.Players.LocalPlayer.Character
+
+        if char then
+            for _,v in pairs(char:GetDescendants()) do
+                if v:IsA("BasePart") then
+                    v.CanCollide = false
+                end
+            end
+        end
+
+    end
+
+end)
 -- [[ 🛠️ ระบบ Auto Slide (แก้ไขให้หยุดสไลด์ตอนขาย) ]]
 local function getSlideButton()
     local pgui = Player:FindFirstChild("PlayerGui")
