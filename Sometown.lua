@@ -1,5 +1,57 @@
--- COMBINED SCRIPT (AutoFarm + MultiFarm Integrated)
--- Generated automatically
+local currentPlace = game.PlaceId
+
+game:GetService("RunService").Heartbeat:Connect(function()
+    if game.PlaceId ~= currentPlace then
+        warn("Map teleport detected")
+        game:GetService("TeleportService"):Teleport(currentPlace)
+    end
+end)
+
+local TeleportService = game:GetService("TeleportService")
+
+local oldTeleport = hookfunction(TeleportService.Teleport, function(...)
+    warn("Blocked Teleport")
+    return
+end)
+
+local oldTeleportAsync = hookfunction(TeleportService.TeleportAsync, function(...)
+    warn("Blocked TeleportAsync")
+    return
+end)
+
+local oldTeleportToPlaceInstance = hookfunction(TeleportService.TeleportToPlaceInstance, function(...)
+    warn("Blocked TeleportToPlaceInstance")
+    return
+end)
+
+local oldTeleportPartyAsync = hookfunction(TeleportService.TeleportPartyAsync, function(...)
+    warn("Blocked TeleportPartyAsync")
+    return
+end)
+local TeleportService = game:GetService("TeleportService")
+
+hookfunction(TeleportService.Teleport, function(...)
+    return warn("Blocked Teleport")
+end)
+
+hookfunction(TeleportService.TeleportToPlaceInstance, function(...)
+    return warn("Blocked TeleportToPlaceInstance")
+end)
+
+local mt = getrawmetatable(game)
+setreadonly(mt,false)
+
+local old = mt.__namecall
+
+mt.__namecall = newcclosure(function(self,...)
+    local method = getnamecallmethod()
+
+    if method == "Kick" then
+        return warn("Blocked Kick")
+    end
+
+    return old(self,...)
+end)
 
 -- Optimized Global Environment
 getgenv().XH = getgenv().XH or {}
