@@ -12,7 +12,13 @@ local CurrentID = Env.ScriptID
 
 
 -- สั่งหยุดการทำงานของสคริปต์ก่อนหน้านี้ทั้งหมด
-Env.SelectedFarmTarget = {}
+Env.SelectedFarmTargets = {}
+
+for name,state in pairs(Value) do
+    if state then
+        table.insert(Env.SelectedFarmTargets,name)
+    end
+end
 Env.CurrentFarmIndex = 1
 Env.SellDelay = 5
 Env.AutoFarm = false
@@ -159,7 +165,7 @@ task.spawn(function()
 end)
 -- Test
 
-for _, farmName in pairs(Env.SelectedFarmTargets) do
+for _, farmName in pairs(Env.SelectedFarmTargets or {}) do
     local data = FarmData[farmName]
     local amount = 0
 
