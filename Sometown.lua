@@ -12,13 +12,8 @@ local CurrentID = Env.ScriptID
 
 
 -- สั่งหยุดการทำงานของสคริปต์ก่อนหน้านี้ทั้งหมด
-Env.SelectedFarmTargets = {}
-
-for name,state in pairs(Value) do
-    if state then
-        table.insert(Env.SelectedFarmTargets,name)
-    end
-end
+Env.SelectedFarmTargets = Env.SelectedFarmTargets or {}
+Env.CurrentFarmIndex = Env.CurrentFarmIndex or 1
 Env.CurrentFarmIndex = 1
 Env.SellDelay = 5
 Env.AutoFarm = false
