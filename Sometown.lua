@@ -502,6 +502,7 @@ local function getCurrentFarmData()
 end
 
 local function nextFarm()
+    task.wait(Env.NextFarmDelay)
     Env.CurrentFarmIndex = Env.CurrentFarmIndex + 1
     if Env.CurrentFarmIndex > #Env.SelectedFarmTargets then
         Env.CurrentFarmIndex = 1
