@@ -5,6 +5,31 @@ local old = mt.__namecall
 
 mt.__namecall = newcclosure(function(self,...)
     local method = getnamecallmethod()
+    local args = {...}
+
+    if method == "FireServer" then
+        local name = tostring(self)
+
+        if name:lower():find("teleport")
+        or name:lower():find("warp")
+        or name:lower():find("rejoin")
+        or name:lower():find("server") then
+            warn("Blocked Remote:", name)
+            return
+        end
+    end
+
+    return old(self,...)
+end)
+
+
+local mt = getrawmetatable(game)
+setreadonly(mt,false)
+
+local old = mt.__namecall
+
+mt.__namecall = newcclosure(function(self,...)
+    local method = getnamecallmethod()
     
     if method == "FireServer" then
         local name = tostring(self)
