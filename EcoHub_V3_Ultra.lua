@@ -1,3 +1,9 @@
+getgenv().Env = getgenv().Env or {}
+local Env = getgenv().Env
+
+-- SAFE EXECUTOR FIX
+local success,err = pcall(function()
+        
 local mt = getrawmetatable(game)
 setreadonly(mt,false)
 
