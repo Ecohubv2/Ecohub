@@ -12,7 +12,7 @@ local CurrentID = Env.ScriptID
 
 
 -- สั่งหยุดการทำงานของสคริปต์ก่อนหน้านี้ทั้งหมด
-Env.SelectedFarmTarget = {}
+Env.SelectedFarmTargets = {}
 Env.CurrentFarmIndex = 1
 Env.SellDelay = 5
 Env.AutoFarm = false
