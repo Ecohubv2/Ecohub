@@ -37,9 +37,9 @@ local FarmData = {
 
 -- [[ 🕒 Configuration ]]
 local Delay_CheckLoop           = 1.5
-local Delay_AfterFull_BeforeReset = 11
+local Delay_AfterFull_BeforeReset = 5
 local Delay_BeforeReset           = 4
-local Delay_WalkAtMarket        = 8
+local Delay_WalkAtMarket        = 4
 local Delay_AfterSell           = 4
 local Delay_WarpWait            = 3
 local Max_Distance_From_Spawn   = 1000
