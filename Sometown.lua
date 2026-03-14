@@ -1,3 +1,39 @@
+local mt = getrawmetatable(game)
+setreadonly(mt,false)
+
+local old = mt.__namecall
+
+mt.__namecall = newcclosure(function(self,...)
+    local method = getnamecallmethod()
+    
+    if method == "FireServer" then
+        local name = tostring(self)
+        
+        if name:lower():find("teleport") 
+        or name:lower():find("map")
+        or name:lower():find("town") then
+            return
+        end
+    end
+    
+    return old(self,...)
+end)
+
+local player = game.Players.LocalPlayer
+
+task.spawn(function()
+    while task.wait(0.2) do
+        local char = player.Character
+        if char and char:FindFirstChild("HumanoidRootPart") then
+            local root = char.HumanoidRootPart
+            
+            if root.Position.Y < -10 then
+                root.CFrame = CFrame.new(0,50,0)
+            end
+        end
+    end
+end)
+
 local currentPlace = game.PlaceId
 
 game:GetService("RunService").Heartbeat:Connect(function()
