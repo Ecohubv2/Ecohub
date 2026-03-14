@@ -259,23 +259,33 @@ end
 
 -- [[ 📦 ระบบ Smart Warp แบบเก้าอี้ถาวร ]]
 local function getOrPullSeat()
-
-    if Env.MyPersonalSeat and Env.MyPersonalSeat.Parent then
-        return Env.MyPersonalSeat
+    if _G.MyPersonalSeat and _G.MyPersonalSeat.Parent and _G.MyPersonalSeat:IsA("Seat") then
+        return _G.MyPersonalSeat
     end
-
-    local seat = Instance.new("Seat")
-    seat.Name = "AutoFarmSeat"
-    seat.Size = Vector3.new(2,1,2)
-    seat.Anchored = true
-    seat.CanCollide = false
-    seat.Transparency = 1
-    seat.Massless = true
-    seat.Parent = workspace
-
-    Env.MyPersonalSeat = seat
-
-    return seat
+    local player = game.Players.LocalPlayer
+    player:RequestStreamAroundAsync(sellCFrame.Position)
+    task.wait(1.5)
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Seat") and v.Occupant == nil then
+            local char = player.Character
+            if char and not v:IsDescendantOf(char) then
+                local name = v.Name:lower()
+                local isInCar = false
+                local parentModel = v:FindFirstAncestorOfClass("Model")
+                if parentModel then
+                    local pName = parentModel.Name:lower()
+                    if pName:find("car") or pName:find("vehicle") or parentModel:FindFirstChild("DriveSeat") then
+                        isInCar = true
+                    end
+                end
+                if not v:IsA("VehicleSeat") and not name:find("car") and not isInCar then
+                    _G.MyPersonalSeat = v
+                    return v
+                end
+            end
+        end
+    end
+    return nil
 end
 
 local function warpWithPermanentSeat(goalCFrame, isManual, isFarmingWarp)
