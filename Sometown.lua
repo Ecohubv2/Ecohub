@@ -12,8 +12,7 @@ local CurrentID = Env.ScriptID
 
 
 -- สั่งหยุดการทำงานของสคริปต์ก่อนหน้านี้ทั้งหมด
-
-Env.SelectedFarmTargets = {}
+Env.SelectedFarmTarget = {}
 Env.CurrentFarmIndex = 1
 Env.SellDelay = 5
 Env.AutoFarm = false
@@ -488,8 +487,6 @@ Tabs.Farm:AddParagraph({
     Title = "⚠️ คำเตือนการฟาร์ม",
     Content = "ถ้าจะเปลี่ยนงานกดปิด Auto Farm ละกดเดิน1ที ค่อยเลือกงานใหม่ละกดเปิด"
 })
-
-Env.SelectedFarmTarget = {}
 
 Tabs.Farm:AddDropdown("SelectFarmTarget", {
     Title = "Select Farm",
