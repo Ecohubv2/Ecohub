@@ -108,7 +108,7 @@ local Delay_BeforeReset           = 4
 local Delay_WalkAtMarket        = 4
 local Delay_AfterSell           = 3
 local Delay_WarpWait            = 3
-local Max_Distance_From_Spawn   = 1000
+local Max_Distance_From_Spawn   = 100
 
 -- [[ ตัวแปรควบคุมกลาง ]]
 Env.WebhookURL = ""
