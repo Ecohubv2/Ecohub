@@ -1,8 +1,4 @@
 
--- =======================================
--- ECO HUB CRITICAL PATCH (Auto Fix)
--- =======================================
-
 getgenv().XH = getgenv().XH or {}
 local Env = getgenv().XH
 
@@ -648,11 +644,6 @@ local Tabs = {
     Settings = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
 
--- [[ 🚜 เนื้อหา Tab Farm ]]
-Tabs.Farm:AddParagraph({
-    Title = "⚠️ คำเตือนการฟาร์ม",
-    Content = "ถ้าจะเปลี่ยนงานกดปิด Auto Farm ละกดเดิน1ที ค่อยเลือกงานใหม่ละกดเปิด"
-})
 
 Tabs.Farm:AddDropdown("SelectFarmTarget", {
     Title = "Select Farm",
@@ -748,12 +739,6 @@ local SlideInput = Tabs.Farm:AddInput("SlideDelayInput", {
             SlideSlider:SetValue(num)
         end
     end
-})
-
--- [[ 📍 เนื้อหา Tab Teleport ]]
-Tabs.Teleport:AddParagraph({
-    Title = "⚠️ คำเตือนการใช้งาน",
-    Content = "ห้ามวาร์ปตอนเปิด Auto Farm อยู่เด็ดขาดโดนแบนนะจ๊ะ ถ้าจะวาร์ปกดปิด Auto Farm ละกดเดิน1ทีค่อยกดวาร์ป(ห้ามกดยํ้ากดครั้งแรกรอแปปนึง กดยํ้าโดนเตะแน่นอน)"
 })
 
 Tabs.Teleport:AddDropdown("SelectLocation", {
