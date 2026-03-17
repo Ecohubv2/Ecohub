@@ -1,14 +1,10 @@
--- Optimized Global Environment
+
 getgenv().XH = getgenv().XH or {}
 local Env = getgenv().XH
 
 Env.ScriptID = (Env.ScriptID or 0) + 1
 local CurrentID = Env.ScriptID
 
--- [[ 🛡️ ระบบ Anti-Overlap: ฆ่าสคริปต์เก่าก่อนรันใหม่ ]]
-
-
--- สั่งหยุดการทำงานของสคริปต์ก่อนหน้านี้ทั้งหมด
 Env.AutoFarm = false
 Env.AutoEat = false
 Env.AutoSlide = false 
@@ -21,7 +17,6 @@ task.wait(0.5)
 local Library = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
--- [[ 📋 ตารางข้อมูลงานทั้งหมด ]]
 local FarmData = {
     ["Strawberry"] = { Pos = CFrame.new(5963.03, 48.90, -1669.50), Item = "Strawberry", Max = 60 },
     ["Corn"]       = { Pos = CFrame.new(5126.27, 45.23, -2333.77), Item = "Corn", Max = 60 },
@@ -35,7 +30,7 @@ local FarmData = {
     ["Grass"]       = { Pos = CFrame.new(-2461.35, 73.00, -1938.21), Item = "Grassbush", Max = 80 },
 }
 
--- [[ 🕒 Configuration ]]
+
 local Delay_CheckLoop           = 1.5
 local Delay_AfterFull_BeforeReset = 5
 local Delay_BeforeReset           = 4
@@ -44,7 +39,7 @@ local Delay_AfterSell           = 4
 local Delay_WarpWait            = 3
 local Max_Distance_From_Spawn   = 1000
 
--- [[ ตัวแปรควบคุมกลาง ]]
+
 Env.WebhookURL = ""
 Env.MoneyTrackerEnabled = false
 Env.AntiAFK = false
@@ -54,7 +49,6 @@ Env.AutoFarm = false
 Env.AutoEat = false
 Env.InfStamina = false
 
--- [[ ตัวแปรระบบฟาร์ม ]]
 Env.VerifyCount = 0
 Env.BotStatus = "CHECKING"
 Env.PauseUIUpdate = false
@@ -66,7 +60,6 @@ local targetAmountToSell = 60
 local sellCFrame = CFrame.new(2862.30, 16.19, 2115.02)
 local spawnPos = CFrame.new(5972.32, 48.80, -1632.06)
 
--- [[ 🏃 ฟังก์ชันระบบวิ่ง (FIXED FOR PC & MOBILE) ]]
 local VIM = game:GetService("VirtualInputManager")
 local UIS = game:GetService("UserInputService")
 local Player = game.Players.LocalPlayer
@@ -110,7 +103,6 @@ local function smartRun()
     end
 end
 
--- [[ 🛠️ ระบบ Auto Slide (แก้ไขให้หยุดสไลด์ตอนขาย) ]]
 local function getSlideButton()
     local pgui = Player:FindFirstChild("PlayerGui")
     if pgui then
@@ -152,7 +144,6 @@ task.spawn(function()
     end
 end)
 
--- [[ ฟังก์ชันสำหรับการวาร์ปทั่วไป ]]
 local function teleportTo(cframe)
     local char = game.Players.LocalPlayer.Character
     if char and char:FindFirstChild("HumanoidRootPart") then
@@ -160,7 +151,7 @@ local function teleportTo(cframe)
     end
 end
 
--- [[ ฟังก์ชันหยุดถาวร ]]
+
 local function PermanentStop()
     local player = game.Players.LocalPlayer
     local char = player.Character
@@ -200,7 +191,7 @@ local function PermanentStop()
     Env.CurrentFarmTargetItem = nil
 end
 
--- [[ 📦 ระบบ Smart Warp แบบเก้าอี้ถาวร ]]
+
 local function getOrPullSeat()
     if Env.MyPersonalSeat and Env.MyPersonalSeat.Parent and Env.MyPersonalSeat:IsA("Seat") then
         return Env.MyPersonalSeat
@@ -306,7 +297,7 @@ local function warpWithPermanentSeat(goalCFrame, isManual, isFarmingWarp)
         Env.PauseUIUpdate = false
     end
 end
--- [[ 🌐 ส่วน WEBHOOK LOGIC ]]
+
 local HttpService = game:GetService("HttpService")
 local request_func = request or (http and http.request) or http_request or (syn and syn.request) or (fluxus and fluxus.request)
 local lastMoney = 0
@@ -383,7 +374,6 @@ task.spawn(function()
     end
 end)
 
--- [[ ระบบ Anti-AFK ]]
 game:GetService("Players").LocalPlayer.Idled:Connect(function()
     if Env.AntiAFK and CurrentID == Env.ScriptID then
         local camera = workspace.CurrentCamera
@@ -391,12 +381,11 @@ game:GetService("Players").LocalPlayer.Idled:Connect(function()
     end
 end)
 
--- [[ 📱 แยกขนาด UI ตามอุปกรณ์ ]]
 local WindowSize = UIS.TouchEnabled and UDim2.fromOffset(450, 320) or UDim2.fromOffset(580, 460)
 
 local Window = Library:CreateWindow({
     Title = "_kopes | reskin ",
-    SubTitle = "Permanent Edition",
+    SubTitle = "Some Town",
     TabWidth = 140,
     Size = WindowSize,
     Acrylic = true,
@@ -525,7 +514,6 @@ Tabs.Webhook:AddToggle("MoneyTracker", {
     Callback = function(v) Env.MoneyTrackerEnabled = v end
 })
 
--- [[ 🚀 ส่วน Fix Lag ]]
 Tabs.FixLag:AddButton({
     Title = "Boost FPS",
     Description = "ลดกราฟิกและลบส่วนไม่จำเป็นเพื่อเพิ่มความลื่น",
@@ -591,7 +579,6 @@ Tabs.Settings:AddToggle("AutoEat", {
     end 
 })
 
--- [[ ⚡ Infinite Stamina ]]
 Tabs.Settings:AddToggle("InfStamina", {
     Title = "Infinite Stamina", Default = false,
     Callback = function(v)
@@ -654,7 +641,6 @@ Tabs.Settings:AddButton({
     end 
 })
 
--- [[ 🔄 ระบบตรวจสอบไอเทม ]]
 task.spawn(function()
     while true do
         if CurrentID ~= Env.ScriptID then break end
@@ -684,7 +670,6 @@ task.spawn(function()
     end
 end)
 
--- [[ 🚜 Main Loops (ระบบฟาร์ม และการขายของ) ]]
 task.spawn(function()
     while true do
         if CurrentID ~= Env.ScriptID then break end
