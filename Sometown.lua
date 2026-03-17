@@ -129,7 +129,7 @@ Env.SeatFollowConnection = Env.SeatFollowConnection or nil
 Env.CurrentFarmTargetItem = nil
 
 local targetAmountToSell = 60
-local sellCFrame = CFrame.new(2854.75488, 14.5466156, 2111.60547, -0.388328224, 8.739908e-08, -0.921521127, 7.01321134e-09, 1, 9.18868253e-08, 0.921521127, 2.92194251e-08, -0.388328224)
+local sellCFrame = CFrame.new(2862.30, 16.19, 2115.02)
 local spawnPos = CFrame.new(5972.32, 48.80, -1632.06)
 
 -- [[ 🏃 ฟังก์ชันระบบวิ่ง (FIXED FOR PC & MOBILE) ]]
