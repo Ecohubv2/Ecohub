@@ -102,13 +102,13 @@ local FarmData = {
 }
 
 -- [[ 🕒 Configuration ]]
-local Delay_CheckLoop           = 1.5
+local Delay_CheckLoop           = 3
 local Delay_AfterFull_BeforeReset = 4
 local Delay_BeforeReset           = 4
 local Delay_WalkAtMarket        = 4
-local Delay_AfterSell           = 3
-local Delay_WarpWait            = 3
-local Max_Distance_From_Spawn   = 100
+local Delay_AfterSell           = 4
+local Delay_WarpWait            = 4
+local Max_Distance_From_Spawn   = 1000
 
 -- [[ ตัวแปรควบคุมกลาง ]]
 Env.WebhookURL = ""
