@@ -1,13 +1,9 @@
--- Optimized Global Environment
 getgenv().XH = getgenv().XH or {}
 local Env = getgenv().XH
-
 if not Env then return end
 
 Env.ScriptID = (Env.ScriptID or 0) + 1
 local CurrentID = Env.ScriptID
-
--- [[ 🛡️ ระบบ Anti-Overlap: ฆ่าสคริปต์เก่าก่อนรันใหม่ ]]
 
 local player = game.Players.LocalPlayer
 local Player = player
@@ -16,7 +12,7 @@ local runService = game:GetService("RunService")
 local VIM = game:GetService("VirtualInputManager")
 local UIS = game:GetService("UserInputService")
 local VirtualUser = game:GetService("VirtualUser")
--- สั่งหยุดการทำงานของสคริปต์ก่อนหน้านี้ทั้งหมด
+
 Env.AutoFarm = false
 Env.AutoEat = false
 Env.AutoSlide = false 
@@ -29,7 +25,7 @@ task.wait(0.5)
 local Library = loadstring(game:HttpGet("https://github.com/dawid-scripts/Fluent/releases/latest/download/main.lua"))()
 local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.com/dawid-scripts/Fluent/master/Addons/InterfaceManager.lua"))()
 
--- [[ 📋 ตารางข้อมูลงานทั้งหมด ]]
+
 local FarmData = {
     ["Strawberry"] = { Pos = CFrame.new(5963.03, 48.90, -1669.50), Item = "Strawberry", Max = 60 },
     ["Corn"]       = { Pos = CFrame.new(5126.27, 45.23, -2333.77), Item = "Corn", Max = 60 },
@@ -43,7 +39,6 @@ local FarmData = {
     ["Grass"]       = { Pos = CFrame.new(-2461.35, 73.00, -1938.21), Item = "Grassbush", Max = 80 },
 }
 
--- [[ 🕒 Configuration ]]
 local Delay_CheckLoop           = 1.5
 local Delay_AfterFull_BeforeReset = 5
 local Delay_BeforeReset           = 4
@@ -53,7 +48,6 @@ local Delay_WarpWait            = 3
 local Max_Distance_From_Spawn   = 1000
 local CachedItems = {}
 
--- [[ ตัวแปรควบคุมกลาง ]]
 Env.WebhookURL = ""
 Env.MoneyTrackerEnabled = false
 Env.AntiAFK = false
@@ -63,7 +57,6 @@ Env.AutoFarm = false
 Env.AutoEat = false
 Env.InfStamina = false
 Env.inf = false
--- [[ ตัวแปรระบบฟาร์ม ]]
 Env.VerifyCount = 0
 Env.BotStatus = "CHECKING"
 Env.PauseUIUpdate = false
@@ -147,8 +140,6 @@ old = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
     return old(self, ...)
 end))
 
--- [[ 🏃 ฟังก์ชันระบบวิ่ง (FIXED FOR PC & MOBILE) ]]
-
 local function getRunButton()
     local pgui = Player:FindFirstChild("PlayerGui")
     if pgui then
@@ -187,7 +178,6 @@ local function smartRun()
     end
 end
 
--- [[ 🛠️ ระบบ Auto Slide (แก้ไขให้หยุดสไลด์ตอนขาย) ]]
 local function getSlideButton()
     local pgui = Player:FindFirstChild("PlayerGui")
     if pgui then
@@ -229,7 +219,6 @@ task.spawn(function()
     end
 end)
 
--- [[ ฟังก์ชันสำหรับการวาร์ปทั่วไป ]]
 local function teleportTo(cframe)
     local char = game.Players.LocalPlayer.Character
     if char and char:FindFirstChild("HumanoidRootPart") then
@@ -237,7 +226,6 @@ local function teleportTo(cframe)
     end
 end
 
--- [[ ฟังก์ชันหยุดถาวร ]]
 local function PermanentStop()
     
     local char = player.Character
@@ -277,7 +265,6 @@ local function PermanentStop()
     Env.CurrentFarmTargetItem = nil
 end
 
--- [[ 📦 ระบบ Smart Warp แบบเก้าอี้ถาวร ]]
 local function getOrPullSeat()
     if Env.MyPersonalSeat and Env.MyPersonalSeat.Parent and Env.MyPersonalSeat:IsA("Seat") then
         return Env.MyPersonalSeat
@@ -383,7 +370,7 @@ local function warpWithPermanentSeat(goalCFrame, isManual, isFarmingWarp)
         Env.PauseUIUpdate = false
     end
 end
--- [[ 🌐 ส่วน WEBHOOK LOGIC ]]
+
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
@@ -393,18 +380,16 @@ local request_func = request or (http and http.request) or http_request or (syn 
 local lastMoney = nil
 local lastSent = 0
 
--- แปลงตัวเลข
+
 local function extractNumber(str)
     if not str or str == "" then return nil end
     local numeric = str:gsub("[^%d]", "")
     return tonumber(numeric)
 end
 
--- ส่ง webhook (กัน spam)
 local function notify(title, desc, color)
     if not request_func or not Env or not Env.WebhookURL or Env.WebhookURL == "" then return end
     
-    -- กันยิงถี่ (2 วิ)
     if tick() - lastSent < 2 then return end
     lastSent = tick()
 
@@ -430,7 +415,6 @@ local function notify(title, desc, color)
     end)
 end
 
--- หาเงินจาก GUI แบบยืดหยุ่น
 local function findMoneyFromGUI()
     local gui = Player:FindFirstChild("PlayerGui")
     if not gui then return nil end
@@ -448,7 +432,6 @@ local function findMoneyFromGUI()
     return nil
 end
 
--- หาเงินจาก item
 local function findMoneyFromItems()
     local sources = {
         Player:FindFirstChild("Backpack"),
