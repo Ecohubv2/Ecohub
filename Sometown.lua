@@ -609,36 +609,71 @@ Tabs.Teleport:AddButton({
 })
 
 local WebhookSection = Tabs.Webhook:AddSection("Webhook Settings")
+
 Tabs.Webhook:AddInput("WebhookURL", {
-    Title = "Discord Webhook URL", Default = Env.WebhookURL,
+    Title = "Discord Webhook URL",
+    Default = "",
     Placeholder = "https://discord.com/api/webhooks/...",
-    Callback = function(Value) Env.WebhookURL = Value end
+    Callback = function(Value)
+        Env.WebhookURL = tostring(Value or "")
+    end
 })
 
 Tabs.Webhook:AddButton({
     Title = "Test Webhook",
-    Description = "กดเพื่อทดสอบ Webhook",
     Callback = function()
         if Env.WebhookURL == "" then
-            Library:Notify({
+            Fluent:Notify({
                 Title = "Error",
-                Content = "กรุณาใส่ Webhook URL ก่อนทดสอบ",
+                Content = "ใส่ Webhook ก่อน",
                 Duration = 5
             })
             return
         end
-        notify("🧪 Test Message", "Webhook ของคุณทำงานปกติ!\n👤: "..Player.Name, 16776960)
-        Library:Notify({
+
+        notifyTotalMoney()
+
+        Fluent:Notify({
             Title = "Success",
-            Content = "ส่งข้อความทดสอบไปที่ Discord แล้ว!",
+            Content = "ส่งสำเร็จ!",
             Duration = 5
         })
     end
 })
 
 Tabs.Webhook:AddToggle("MoneyTracker", {
-    Title = "Enable Money Tracker", Default = Env.MoneyTrackerEnabled,
-    Callback = function(v) Env.MoneyTrackerEnabled = v end
+    Title = "Enable Money Tracker",
+    Default = false,
+    Callback = function(v)
+        Env.MoneyTrackerEnabled = v and true or false
+    end
+})
+
+Tabs.Webhook:AddInput("MoneyCheckInterval", {
+    Title = "Money Check Interval (นาที)",
+    Default = tostring(checkIntervalMinutes),
+    Numeric = true,
+    Finished = true,
+    Callback = function(Value)
+        local num = tonumber(Value)
+
+        if num and num > 0 then
+            checkIntervalMinutes = num
+            checkIntervalSeconds = num * 60
+
+            Fluent:Notify({
+                Title = "Success",
+                Content = "ตั้งเวลา "..num.." นาที",
+                Duration = 5
+            })
+        else
+            Fluent:Notify({
+                Title = "Error",
+                Content = "ใส่เลข > 0 เท่านั้น",
+                Duration = 5
+            })
+        end
+    end
 })
 
 -- [[ 🚀 ส่วน Fix Lag ]]
