@@ -509,8 +509,8 @@ end)
 local WindowSize = UIS.TouchEnabled and UDim2.fromOffset(450, 320) or UDim2.fromOffset(580, 460)
 
 local Window = Library:CreateWindow({
-    Title = "_kopes | reskin ",
-    SubTitle = "Permanent Edition",
+    Title = "NONAME HUB",
+    SubTitle = "SomeTown",
     TabWidth = 140,
     Size = WindowSize,
     Acrylic = true,
