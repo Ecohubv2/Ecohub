@@ -926,8 +926,16 @@ local function getRockAmount()
     local cur, max = 0, 0
 
     pcall(function()
-        local text = Player.PlayerGui.Inventory
-            .CanvasGroup.Main.Body.Rock.Main.Amount.Text
+        local inv = Player:WaitForChild("PlayerGui")
+            :WaitForChild("Inventory")
+            :WaitForChild("CanvasGroup")
+            :WaitForChild("Main")
+            :WaitForChild("Body")
+            :WaitForChild("Rock")
+            :WaitForChild("Main")
+            :WaitForChild("Amount")
+
+        local text = inv.Text
 
         local a, b = text:match("(%d+)%s*/%s*(%d+)")
         if a and b then
