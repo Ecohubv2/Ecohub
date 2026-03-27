@@ -924,12 +924,12 @@ Tabs.Farm:AddSection("Mine")
 
 Env.AutoMine = false
 
-Env.DelayMine = 0.5
-Env.DelayWarp = 1
-Env.DelayProcess = 2
-Env.DelayWaitEmpty = 1
-Env.DelayRespawn = 2
-Env.DelaySell = 2
+Env.DelayMine = 1.5
+Env.DelayWarp = 4
+Env.DelayProcess = 4
+Env.DelayWaitEmpty = 4
+Env.DelayRespawn = 4
+Env.DelaySell = 4
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
