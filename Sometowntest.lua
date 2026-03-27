@@ -1026,14 +1026,11 @@ Tabs.Farm:AddToggle("AutoMine", {
     end
 })
 -- ตกปลา
-Env.AutoFishAll = false
-Env.FishingRodUsed = false
+Env.AutoFish = ตกปลา
 
 local baitShop = CFrame.new(3000.26025, 14.6258106, 2278.10205, 0.867425501, 1.18460228e-07, -0.497567087, -1.22624328e-07, 1, 2.43037732e-08, 0.497567087, 3.99321181e-08, 0.867425501)
 
 local fishSpot = CFrame.new(2345.66235, 9.31522369, 3845.95898, -0.796783566, -2.56285499e-08, -0.604264796, -6.02654495e-08, 1, 3.7053244e-08, 0.604264796, 6.59397017e-08, -0.796783566)
-
-local sellPos = CFrame.new(2862.30, 16.19, 2115.02)
 
 local Remote = game:GetService("ReplicatedStorage")
     :WaitForChild("Modules")
@@ -1044,8 +1041,8 @@ local function getItemAmount(itemName)
     local amount = 0
     pcall(function()
         local txt = Player.PlayerGui.Inventory.CanvasGroup.Main.Body[itemName].Main.Amount.Text
-        local current = txt:match("^(%d+)")
-        if current then amount = tonumber(current) end
+        local num = txt:match("^(%d+)")
+        if num then amount = tonumber(num) end
     end)
     return amount
 end
@@ -1061,54 +1058,47 @@ local function buyBait()
     task.wait(2)
 end
 
-local function useRod()
-    Remote:FireServer("fire", nil, "Use Tool", "Fishingrod")
-end
-
 local function startFishing()
     Remote:FireServer("fire", nil, "AutoFishing")
 end
 
-local function sellAll()
-    warpWithPermanentSeat(sellPos, true, false)
+local function sellAllAuto()
+    warpWithPermanentSeat(sellCFrame, true, false)
     task.wait(2)
 
-    local items = {"Fish", "Crab"}
+    local body = Player.PlayerGui.Inventory.CanvasGroup.Main.Body
 
-    for _, item in pairs(items) do
-        local amount = getItemAmount(item)
-        if amount > 0 then
-            Remote:FireServer("fire", nil, "Economy", item, amount)
-            task.wait(0.5)
-        end
+    for _, item in pairs(body:GetChildren()) do
+        pcall(function()
+            if item:FindFirstChild("Main") and item.Main:FindFirstChild("Amount") then
+                local txt = item.Main.Amount.Text
+                local num = txt:match("^(%d+)")
+                local amount = tonumber(num)
+
+                if amount and amount > 0 then
+                    Remote:FireServer("fire", nil, "Economy", item.Name, amount)
+                    task.wait(0.3)
+                end
+            end
+        end)
     end
 
     task.wait(2)
 end
 
-Player.CharacterAdded:Connect(function()
-    Env.FishingRodUsed = false
-end)
-
 task.spawn(function()
     while task.wait(2) do
-        if not Env.AutoFishAll then continue end
+        if not Env.AutoFish do continue end
 
         local char = Player.Character
         local hum = char and char:FindFirstChild("Humanoid")
 
         if not (char and hum and hum.Health > 0) then continue end
 
-        if not Env.FishingRodUsed then
-            useRod()
-            Env.FishingRodUsed = true
-            task.wait(1)
-        end
-
         local bait = getBaitAmount()
 
         if bait <= 0 then
-            sellAll()
+            sellAllAuto()
             buyBait()
             continue
         end
@@ -1121,7 +1111,7 @@ task.spawn(function()
         repeat
             task.wait(2)
             bait = getBaitAmount()
-        until bait <= 0 or not Env.AutoFishAll
+        until bait <= 0 or not Env.AutoFish
 
     end
 end)
@@ -1130,7 +1120,7 @@ Tabs.Farm:AddToggle("AutoFishAll", {
     Title = "Auto Fish",
     Default = false,
     Callback = function(v)
-        Env.AutoFishAll = v
+        Env.AutoFish = v
     end
 })
 
