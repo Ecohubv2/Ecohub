@@ -7,7 +7,7 @@ getgenv().Config = {
         http = "https://raw.githubusercontent.com/Ecohubv2/Ecohub/main/LOL.lua"
     },
     [84259959693333] = {
-    http = "https://raw.githubusercontent.com/Ecohubv2/Ecohub/main/LOL.lua"
+    http = "https://raw.githubusercontent.com/Ecohubv2/Test/refs/heads/main/Sketbord.lua"
     }
 }
 
