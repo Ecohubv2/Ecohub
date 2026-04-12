@@ -5,6 +5,9 @@ local GameName = MarketplaceService:GetProductInfo(PlaceId).Name
 getgenv().Config = {
     [134493152783903] = {
         http = "https://raw.githubusercontent.com/Ecohubv2/Ecohub/main/LOL.lua"
+    },
+    [84259959693333] = {
+    http = "https://raw.githubusercontent.com/Ecohubv2/Ecohub/main/LOL.lua"
     }
 }
 
