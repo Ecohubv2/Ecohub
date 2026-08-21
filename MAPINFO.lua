@@ -4,16 +4,7 @@ local GameName = MarketplaceService:GetProductInfo(PlaceId).Name
 
 getgenv().Config = {
     [134493152783903] = {
-        http = "https://raw.githubusercontent.com/Ecohubv2/Ecohub/main/LOL.lua"
-    },
-    [84259959693333] = {
-    http = "https://raw.githubusercontent.com/Ecohubv2/Test/refs/heads/main/Sketbord.lua"
-    },
-    [133341016381877] = {
-    http = "https://raw.githubusercontent.com/Ecohubv2/Test/refs/heads/main/mount_rng.lua"
-    },
-    [131791366604550] = {
-    http = "https://raw.githubusercontent.com/Ecohubv2/Test/refs/heads/main/LaunchPlane.lua"
+        http = "https://raw.githubusercontent.com/Ecohubv2/Ecohub/main/Throwacoin.lua"
     }
 }
 
