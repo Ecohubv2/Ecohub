@@ -3,7 +3,7 @@ local PlaceId = game.PlaceId
 local GameName = MarketplaceService:GetProductInfo(PlaceId).Name
 
 getgenv().Config = {
-    [134493152783903] = {
+    [115681808123944] = {
         http = "https://raw.githubusercontent.com/Ecohubv2/Ecohub/main/Throwacoin.lua"
     }
 }
