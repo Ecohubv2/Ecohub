@@ -10,10 +10,10 @@ getgenv().Config = {
         }
     },
 
-     ["Roll a G"] = {
+     ["Roll a Gnome"] = {
          URL = "https://raw.githubusercontent.com/Ecohubv2/Test/refs/heads/main/rag.lua",
          Places = {
-             123456789
+             117539213094671
          }
      }
 }
